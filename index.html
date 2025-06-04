@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafios de Javascript 💡</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><span class="logo-highlight">&lt;/&gt;</span> Desafios de Javascript</h1>
+        <nav id="main-nav">
+            <button data-difficulty="all" class="active">Todos</button>
+            <button data-difficulty="easy">Fácil</button>
+            <button data-difficulty="medium">Médio</button>
+            <button data-difficulty="hard">Difícil</button>
+        </nav>
+    </header>
+
+    <main>
+        <aside id="challenge-list-container">
+            <h2>📜 Lista de Desafios</h2>
+            <ul id="challenge-list">
+                </ul>
+        </aside>
+
+        <section id="challenge-display">
+            <div id="challenge-placeholder">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="placeholder-icon"><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path><path d="M12 12l0 6"></path><path d="M12 12l3.5 -2"></path><path d="M12 12l-3.5 -2"></path></svg>
+                <h2>Selecione um Desafio</h2>
+                <p>Escolha um desafio na lista ao lado para começar. Use o menu acima para filtrar por dificuldade.</p>
+            </div>
+            <div id="challenge-content" class="hidden">
+                <div class="challenge-header">
+                    <h3 id="challenge-title"></h3>
+                    <span id="challenge-difficulty-text" class="difficulty-badge"></span>
+                </div>
+                <p id="challenge-description"></p>
+                
+                <h4>Entrada de Dados</h4>
+                <div id="input-area">
+                    </div>
+
+                <button id="run-challenge">🚀 Executar Código</button>
+
+                <h4>Saída Esperada</h4>
+                <pre id="output-area" class="output-placeholder">// A saída aparecerá aqui...</pre>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
