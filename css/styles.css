@@ -101,6 +101,7 @@ main {
 }
 
 #challenge-display {
+    width: 60%;
     background-color: white;
     padding: 1.5rem 2rem;
     border-radius: 8px;
@@ -148,9 +149,11 @@ main {
     color: white;
     font-size: 0.9em;
 }
+#challenge-difficulty-text.very-easy { background-color: #2ecc71; /* Verde */ }
 #challenge-difficulty-text.easy { background-color: #2ecc71; /* Verde */ }
 #challenge-difficulty-text.medium { background-color: #f1c40f; /* Amarelo */ }
 #challenge-difficulty-text.hard { background-color: #e74c3c; /* Vermelho */ }
+#challenge-difficulty-text.very-hard { background-color: #c0392b; /* Vermelho escuro */ }
 
 
 #input-area label {

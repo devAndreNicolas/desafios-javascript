@@ -14,7 +14,7 @@ const navButtons = document.querySelectorAll('#main-nav button'); // Adicionado 
 let activeChallengeListItem = null; // Para gerenciar o item ativo na lista
 
 export function displayChallenges(challengesData, filter = 'all', onChallengeClickCallback) {
-    challengeListEl.innerHTML = ''; 
+    challengeListEl.innerHTML = ''; // Limpa o DOM antes de renderizar
     const filteredChallenges = filter === 'all' ? challengesData : challengesData.filter(c => c.difficulty === filter);
 
     if (filteredChallenges.length === 0) {
@@ -25,10 +25,12 @@ export function displayChallenges(challengesData, filter = 'all', onChallengeCli
     filteredChallenges.forEach(challenge => {
         const listItem = document.createElement('li');
         let difficultyClass = '';
-        if (challenge.difficulty === 'easy') difficultyClass = 'difficulty-easy';
+        if (challenge.difficulty === 'very-easy') difficultyClass = 'difficulty-very-easy';
+        else if (challenge.difficulty === 'easy') difficultyClass = 'difficulty-easy';
         else if (challenge.difficulty === 'medium') difficultyClass = 'difficulty-medium';
         else if (challenge.difficulty === 'hard') difficultyClass = 'difficulty-hard';
-        
+        else if (challenge.difficulty === 'very-hard') difficultyClass = 'difficulty-very-hard';
+
         listItem.className = `challenge-item ${difficultyClass}`;
         listItem.innerHTML = `<span class="challenge-item-title">${challenge.title}</span>`;
         listItem.dataset.challengeId = challenge.id;

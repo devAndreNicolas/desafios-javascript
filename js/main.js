@@ -44,17 +44,16 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             setActiveNavButton(button);
             const difficulty = button.dataset.difficulty;
-            displayChallenges(challenges, difficulty, handleChallengeSelection);
+            displayChallenges(challenges, difficulty, handleChallengeSelection); // Usa apenas o array `challenges`
             resetChallengeDisplay(); // Reseta a área principal
             currentChallenge = null; // Limpa o desafio atual ao filtrar
         });
     });
     
-    // --- INICIALIZAÇÃO ---
+    // Inicialização
     updateNavButtonCounts(challenges);
-    // Exibir todos os desafios inicialmente e definir o botão "Todos" como ativo
     const initialActiveButton = document.querySelector('#main-nav button[data-difficulty="all"]');
-    if(initialActiveButton) setActiveNavButton(initialActiveButton);
-    displayChallenges(challenges, 'all', handleChallengeSelection); 
+    if (initialActiveButton) setActiveNavButton(initialActiveButton);
+    displayChallenges(challenges, 'all', handleChallengeSelection); // Usa apenas o array `challenges`
     resetChallengeDisplay(); // Garante que o placeholder apareça no início
 });
