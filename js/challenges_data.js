@@ -372,10 +372,10 @@ export const challenges = [
     
     Exemplos de códigos válidos para teste:
     - 123456789014
-    - 000000000005
-    - 111111111114
-    - 987654321097
-    - 555555555552
+    - 000000000000
+    - 111111111119
+    - 987654321096
+    - 555555555555
     
     Digite um dos códigos acima para obter a resposta "VÁLIDO".`,
     difficulty: 'easy',
