@@ -7,7 +7,8 @@ import {
     resetChallengeDisplay,
     getChallengeInputs,
     updateNavButtonCounts,
-    setActiveNavButton
+    setActiveNavButton,
+    clearGlobalStates
 } from './ui_manager.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentChallenge = null;
 
     function handleChallengeSelection(challengeId) {
+        clearGlobalStates();
         currentChallenge = challenges.find(c => c.id === challengeId);
         if (currentChallenge) {
             loadChallengeDetail(currentChallenge);

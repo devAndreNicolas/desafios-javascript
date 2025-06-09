@@ -14,8 +14,14 @@ const navButtons = document.querySelectorAll('#main-nav button'); // Adicionado 
 let activeChallengeListItem = null; // Para gerenciar o item ativo na lista
 
 export function displayChallenges(challengesData, filter = 'all', onChallengeClickCallback) {
-    challengeListEl.innerHTML = ''; // Limpa o DOM antes de renderizar
-    const filteredChallenges = filter === 'all' ? challengesData : challengesData.filter(c => c.difficulty === filter);
+    challengeListEl.innerHTML = '';
+    let filteredChallenges;
+
+    if (filter === 'team') {
+        filteredChallenges = challengesData.filter(c => c.id === 'team');
+    } else {
+        filteredChallenges = filter === 'all' ? challengesData : challengesData.filter(c => c.difficulty === filter);
+    }
 
     if (filteredChallenges.length === 0) {
         challengeListEl.innerHTML = '<li class="no-challenges">Nenhum desafio encontrado para este filtro.</li>';
@@ -24,18 +30,11 @@ export function displayChallenges(challengesData, filter = 'all', onChallengeCli
 
     filteredChallenges.forEach(challenge => {
         const listItem = document.createElement('li');
-        let difficultyClass = '';
-        if (challenge.difficulty === 'very-easy') difficultyClass = 'difficulty-very-easy';
-        else if (challenge.difficulty === 'easy') difficultyClass = 'difficulty-easy';
-        else if (challenge.difficulty === 'medium') difficultyClass = 'difficulty-medium';
-        else if (challenge.difficulty === 'hard') difficultyClass = 'difficulty-hard';
-        else if (challenge.difficulty === 'very-hard') difficultyClass = 'difficulty-very-hard';
-
-        listItem.className = `challenge-item ${difficultyClass}`;
+        listItem.className = `challenge-item`; // Remova a classe de dificuldade
         listItem.innerHTML = `<span class="challenge-item-title">${challenge.title}</span>`;
         listItem.dataset.challengeId = challenge.id;
         listItem.addEventListener('click', () => {
-            onChallengeClickCallback(challenge.id); // Chama o callback passado
+            onChallengeClickCallback(challenge.id);
             if (activeChallengeListItem) {
                 activeChallengeListItem.classList.remove('active');
             }
@@ -53,39 +52,44 @@ export function loadChallengeDetail(challenge) {
     challengeContentEl.classList.remove('hidden');
 
     challengeTitleEl.textContent = challenge.title;
-    challengeDescriptionEl.innerHTML = challenge.description; 
-    
-    challengeDifficultyTextEl.textContent = challenge.difficulty.charAt(0).toUpperCase() + challenge.difficulty.slice(1);
-    challengeDifficultyTextEl.className = 'difficulty-badge'; // Limpa classes anteriores
-    challengeDifficultyTextEl.classList.add(challenge.difficulty);
+    challengeDescriptionEl.innerHTML = challenge.description;
 
+    if (challenge.id === 'team') {
+        challengeDifficultyTextEl.textContent = '';
+        challengeDifficultyTextEl.className = '';
+        inputAreaEl.innerHTML = '';
+    } else {
+        challengeDifficultyTextEl.textContent = challenge.difficulty.charAt(0).toUpperCase() + challenge.difficulty.slice(1);
+        challengeDifficultyTextEl.className = 'difficulty-badge'; // Limpa classes anteriores
+        challengeDifficultyTextEl.classList.add(challenge.difficulty);
 
-    inputAreaEl.innerHTML = ''; 
-    challenge.inputs.forEach(inputDef => {
-        const formGroup = document.createElement('div');
-        formGroup.className = 'form-group';
+        inputAreaEl.innerHTML = '';
+        challenge.inputs.forEach(inputDef => {
+            const formGroup = document.createElement('div');
+            formGroup.className = 'form-group';
 
-        const label = document.createElement('label');
-        label.setAttribute('for', inputDef.name);
-        label.textContent = inputDef.label;
+            const label = document.createElement('label');
+            label.setAttribute('for', inputDef.name);
+            label.textContent = inputDef.label;
 
-        let inputElement;
-        if (inputDef.type === 'textarea') {
-            inputElement = document.createElement('textarea');
-            inputElement.rows = 3;
-        } else {
-            inputElement = document.createElement('input');
-            inputElement.type = inputDef.type;
-        }
-        inputElement.id = inputDef.name;
-        inputElement.name = inputDef.name;
-        inputElement.className = 'form-control';
-        if(inputDef.placeholder) inputElement.placeholder = inputDef.placeholder;
+            let inputElement;
+            if (inputDef.type === 'textarea') {
+                inputElement = document.createElement('textarea');
+                inputElement.rows = 3;
+            } else {
+                inputElement = document.createElement('input');
+                inputElement.type = inputDef.type;
+            }
+            inputElement.id = inputDef.name;
+            inputElement.name = inputDef.name;
+            inputElement.className = 'form-control';
+            if (inputDef.placeholder) inputElement.placeholder = inputDef.placeholder;
 
-        formGroup.appendChild(label);
-        formGroup.appendChild(inputElement);
-        inputAreaEl.appendChild(formGroup);
-    });
+            formGroup.appendChild(label);
+            formGroup.appendChild(inputElement);
+            inputAreaEl.appendChild(formGroup);
+        });
+    }
 
     updateOutputArea('// A saída aparecerá aqui...', 'placeholder');
 }
@@ -108,6 +112,12 @@ export function resetChallengeDisplay() {
         activeChallengeListItem = null;
     }
     updateOutputArea('// A saída aparecerá aqui...', 'placeholder');
+}
+
+export function clearGlobalStates() {
+    window.classificacaoState = null;
+    window.exploradorState = null;
+    window.planilhaState = null;
 }
 
 export function getChallengeInputs(challenge) {
